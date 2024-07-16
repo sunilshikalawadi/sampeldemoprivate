@@ -1,0 +1,177 @@
+lamp server
+sudo su
+cd
+multiple application if we want to install the common is
+apt update && apt upgrade -y
+how to check the version
+lsb_release -a
+
+what we require for lamp server
+instaltion steops
+apache
+mysql
+php
+
+apache server installtion:: apt-get install apache2
+systemctl status apache2
+systemctl enable apache2
+change the direcory to webserver
+cd /var/www/
+ls
+html
+cd html/
+pwd
+/var/www/html
+To delete all text in a file in Vim editor, you can use the following steps:
+
+Enter Command Mode: If you're not already in command mode, press Esc to ensure you're in normal mode.
+
+Select All Text: Press ggVG. Here's what this command does:
+
+gg: Moves the cursor to the beginning of the file.
+V: Starts visual mode, allowing you to visually select text.
+G: Moves the cursor to the end of the file, thereby selecting all lines from the current cursor position to the end of the file.
+Delete Selected Text: Once all text is selected, press d. This will delete the selected text.
+
+Save and Exit (if desired): If you want to save the changes and exit Vim:
+
+Enter command mode again if needed by pressing Esc.
+Type :wq and press Enter. This command writes (saves) the file and quits Vim.
+So, the sequence of commands in Vim to delete all text in a file and then save (if desired) would be:
+
+
+
+
+
+
+apt search mysql
+apt-get install mysql-server
+systemctl status mysql
+systemctl start mysql
+systemctl enable mysql
+mysql_secure_installation
+
+press y for all
+setup mysql default root user password
+login to mysql with default user name and password
+mysql -u root -p <press enter>
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'Admin@123';
+
+flush privileges;
+
+qutting from the mysql :: \q
+
+it will come root user 
+
+mysql -u root -p
+
+show databases;
+
+mysql> CREATE DATABASE sample_db;
+
+USE sample_db;
+
+	create table users (
+             id INT AUTO_INCREMENT PRIMARY KEY,
+             name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO users (name) VALUES ('SUNIL SJ'), ('Devops Engineer');
+INSERT INTO users (name) VALUES ('demo user'), ('Network Engineer');
+INSERT INTO users (name) VALUES ('Jagannath'), ('Automation Engineer');
+
+vim index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database Connection Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .status {
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        .success {
+            background-color: green;
+        }
+        .failure {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<?php
+$servername = "localhost";
+$username = "root"; // Your database username
+$password = "Admin@123"; // Your database password
+$dbname = "sample_db";
+
+try {
+    // Create connection
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // Set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "<div class='status success'>Connection to database was successful!</div>";
+
+    // Fetch some data as a proof of connection
+    $stmt = $conn->prepare("SELECT * FROM users");
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($result) {
+        echo "<h3>Sample Data:</h3>";
+        echo "<ul>";
+        foreach ($result as $row) {
+            echo "<li>" . htmlspecialchars($row['name']) . "</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "<p>No data found in the table.</p>";
+    }
+} catch(PDOException $e) {
+    echo "<div class='status failure'>Connection failed: " . htmlspecialchars($e->getMessage()) . "</div>";
+}
+
+// Close connection
+$conn = null;
+?>
+
+</body>
+</html>
+
+systemctl restart apache2
+cd /etc/apache2/
+
+
+
+
+nwo if u wnat verify whcih server is install we install 
+apache2 and php so 
+apt install net-tools
+if we want a check the tools
+netstat -tlupn
+we will get tcp and udp ports
+
+php installalation 
+
+apt-get install php
+php -v
+
+
+login to mysql server and create user and database
+
+
+mysql_secure_installation 
+
+mysql -u root -p (p means print)
+show databases;
